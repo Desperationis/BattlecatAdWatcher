@@ -96,9 +96,9 @@ navigateToChapter
 while true
 do
 	touch 1820 1040 # Press Catfood
-	sleep 10s
+	sleep 4s
 	touch 1300 350 # Press "Watch Media"
-	sleep 50s
+	sleep 45s
 	touch 2340 70 # Press >>
 	sleep 5s
 	touch 2340 70 # Press X
