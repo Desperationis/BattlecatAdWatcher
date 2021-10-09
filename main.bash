@@ -98,9 +98,9 @@ do
 	touch 1820 1040 # Press Catfood
 	sleep 10s
 	touch 1300 350 # Press "Watch Media"
-	sleep 40s
+	sleep 50s
 	touch 2340 70 # Press >>
-	sleep 3s
+	sleep 5s
 	touch 2340 70 # Press X
 	sleep 2s
 
@@ -109,6 +109,6 @@ do
 
 	if ! battleCatsRunning
 	then
-		restartBattleCats
+		navigateToChapter
 	fi
 done
