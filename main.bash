@@ -20,7 +20,7 @@ battlecats=jp.co.ponos.battlecatsen
 
 # Wrapper functions
 launchBattleCats () {
-	adb shell monkey -p $battlecats 1 > /dev/null 2&>1
+	adb shell monkey -p $battlecats 1 > /dev/null 2>&1
 }
 
 touch() {
@@ -83,39 +83,32 @@ listAllApps () {
 navigateToChapter() {
 	restartBattleCats
 	sleep 10s # TODO; replace this with Pillow python
-	touch 2100 1000 # Press "skip"
+	touch 2070 1000 # Press "skip"
 	sleep 2s
-	touch 1200 600 # Press "Start"
+	touch 1200 660 # Press "Start"
 	sleep 2s
-	touch 1200 600 # Press Chapter
+	touch 1200 660 # Press Chapter
 	sleep 3s
 }
 
 navigateToChapter
 
-count=0
 while true
 do
-	if [[ count -eq 0 ]]
-	then
-		navigateToChapter
-		count=0
-	fi
 	touch 1820 1040 # Press Catfood
 	sleep 10s
 	touch 1300 350 # Press "Watch Media"
-	sleep 30s
-	touch 2310 82 # Press X
-	sleep 5s
+	sleep 40s
+	touch 2340 70 # Press >>
+	sleep 3s
+	touch 2340 70 # Press X
+	sleep 2s
+
+	touch 1455 660 # Collect catfood
+	sleep 1s
 
 	if ! battleCatsRunning
 	then
-		navigateToChapter
-	else
-		touch 1475 660
-		sleep 1s
+		restartBattleCats
 	fi
-
-	let "count++"
-	echo $count
 done
