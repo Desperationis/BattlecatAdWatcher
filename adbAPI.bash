@@ -78,3 +78,26 @@ listAllApps () {
 screenshot() {
 	adb exec-out screencap -p > screen.png
 }
+
+clickFoundImage() {
+	screenshot
+
+	templateName=$1	
+	coords=$(python3 getcoords.py ./imgdec/$templateName screen.png .80)
+	coordsFound=$?
+
+	until [[ $coordsFound -eq 0 ]]
+	do
+		screenshot
+		coords=$(python3 getcoords.py ./imgdec/$templateName screen.png .80)
+		coordsFound=$?
+	done
+
+	touch $coords
+}
+
+
+
+
+
+

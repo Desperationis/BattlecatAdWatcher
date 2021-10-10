@@ -7,13 +7,9 @@ source adbAPI.bash
 
 navigateToChapter() {
 	restartBattleCats
-	sleep 10s # TODO; replace this with Pillow python
-	touch 2070 1000 # Press "skip"
-	sleep 2s
-	touch 1200 660 # Press "Start"
-	sleep 2s
-	touch 1200 660 # Press Chapter
-	sleep 3s
+	clickFoundImage skip.png	
+	clickFoundImage play.png
+	clickFoundImage chapter.png
 }
 
 counter=0
