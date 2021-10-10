@@ -4,3 +4,4 @@ screen.png
 *build/
 *.cache/
 *compile_commands.json
+stuck/
