@@ -83,13 +83,20 @@ clickFoundImage() {
 	screenshot
 
 	templateName=$1	
-	coords=$(python3 getcoords.py ./imgdec/$templateName screen.png .80)
+	accuracy=.80
+
+	if [[ $# -ge 2 ]]
+	then
+		accuracy=$2
+	fi
+
+	coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
 	coordsFound=$?
 
 	until [[ $coordsFound -eq 0 ]]
 	do
 		screenshot
-		coords=$(python3 getcoords.py ./imgdec/$templateName screen.png .80)
+		coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
 		coordsFound=$?
 	done
 
@@ -99,5 +106,22 @@ clickFoundImage() {
 
 
 
+clickImageCache() {
+	templateName=$1	
+	accuracy=.80
 
+	if [[ $# -ge 2 ]]
+	then
+		accuracy=$2
+	fi
 
+	coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
+	coordsFound=$?
+
+	if [[ $coordsFound -ne 0 ]]
+	then
+		return 1
+	fi
+
+	touch $coords
+}

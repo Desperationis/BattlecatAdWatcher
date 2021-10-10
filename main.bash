@@ -17,26 +17,42 @@ navigateToChapter
 
 while true
 do
-	touch 1780 600
-	touch 1820 1040 # Press Catfood
-	sleep 4s
-	touch 1300 350 # Press "Watch Media"
-	sleep 45s
-	touch 2340 70 # Press >>
-	sleep 5s
-	touch 2340 70 # Press X
-	sleep 2s
+	touch 1780 600 # In case we run out of ads, press "Close"
+	clickFoundImage catfood.png
+	clickFoundImage watch.png
 
-	touch 1455 660 # Collect catfood
-	sleep 1s
+	timer=0
+	while true
+	do
+		screenshot
+		if clickImageCache ok.png || clickImageCache systemok.png
+		then
+			break
+		fi
+
+		if [[ $timer > 20 ]]
+		then
+			clickImageCache x.png .93
+			clickImageCache dash.png .93
+		fi
+
+		if ! battleCatsRunning
+		then
+			counter=0
+			navigateToChapter
+			break
+		fi
+
+		# Timer is solely based on the fact that "screenshot" func takes about 1 sec
+		((timer++))
+	done
+
 
 	(( counter++ ))
 
-	if [[ $counter -ge 4 ]] || ! battleCatsRunning
+	if [[ $counter -ge 10 ]]
 	then
 		navigateToChapter
 		counter=0
 	fi
-
-	echo $counter
 done
