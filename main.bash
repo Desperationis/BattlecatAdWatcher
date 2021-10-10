@@ -32,6 +32,16 @@ do
 			break
 		fi
 
+		if [[ $timer -gt 4 ]]
+		then
+			if python3 isBlack.py
+			then
+				counter=0
+				navigateToChapter
+				break
+			fi
+		fi
+
 		if [[ $timer -gt 15 ]]
 		then
 
@@ -41,7 +51,7 @@ do
 			done
 		fi
 
-		if [[ $timer -gt 60 ]]
+		if [[ $timer -gt 45 ]]
 		then
 			mkdir stuck
 			mv screen.png stuck/$(date +%s).png
