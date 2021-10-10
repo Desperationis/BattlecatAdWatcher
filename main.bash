@@ -32,8 +32,10 @@ do
 
 		if [[ $timer > 20 ]]
 		then
-			clickImageCache x.png .93
-			clickImageCache dash.png .93
+			for file in imgdec/ads/*
+			do
+				clickImageCache "${file#imgdec/}" .93
+			done
 		fi
 
 		if ! battleCatsRunning
