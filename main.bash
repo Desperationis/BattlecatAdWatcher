@@ -91,10 +91,12 @@ navigateToChapter() {
 	sleep 3s
 }
 
+counter=0
 navigateToChapter
 
 while true
 do
+	touch 1780 600
 	touch 1820 1040 # Press Catfood
 	sleep 4s
 	touch 1300 350 # Press "Watch Media"
@@ -107,8 +109,13 @@ do
 	touch 1455 660 # Collect catfood
 	sleep 1s
 
-	if ! battleCatsRunning
+	(( counter++ ))
+
+	if [[ $counter -ge 4 ]] || ! battleCatsRunning
 	then
 		navigateToChapter
+		counter=0
 	fi
+
+	echo $counter
 done
