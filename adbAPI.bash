@@ -90,13 +90,14 @@ clickFoundImage() {
 		accuracy=$2
 	fi
 
-	coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
+	#coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
+	coords=$(./getcoords ./imgdec/$templateName screen.png $accuracy)
 	coordsFound=$?
-
 	until [[ $coordsFound -eq 0 ]]
 	do
 		screenshot
-		coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
+		#coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
+		coords=$(./getcoords ./imgdec/$templateName screen.png $accuracy)
 		coordsFound=$?
 	done
 
@@ -115,7 +116,8 @@ clickImageCache() {
 		accuracy=$2
 	fi
 
-	coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
+	#coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
+	coords=$(./getcoords ./imgdec/$templateName screen.png $accuracy)
 	coordsFound=$?
 
 	if [[ $coordsFound -ne 0 ]]

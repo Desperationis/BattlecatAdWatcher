@@ -1,2 +1,6 @@
 *.swp
 screen.png
+*executable/
+*build/
+*.cache/
+*compile_commands.json
