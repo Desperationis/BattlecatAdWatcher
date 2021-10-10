@@ -26,13 +26,14 @@ do
 	do
 		echo $timer
 		screenshot
-		if clickImageCache ok.png || clickImageCache systemok.png
-		then
-			break
-		fi
 
 		if [[ $timer -gt 20 ]]
 		then
+			if clickImageCache ok.png || clickImageCache systemok.png
+			then
+				break
+			fi
+
 			for file in imgdec/ads/*
 			do
 				clickImageCache "${file#imgdec/}" .93
@@ -57,6 +58,7 @@ do
 
 		# Timer is solely based on the fact that "screenshot" func takes about 1 sec
 		((timer++))
+		sleep 1
 	done
 
 	(( counter++ ))
