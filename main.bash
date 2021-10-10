@@ -24,18 +24,28 @@ do
 	timer=0
 	while true
 	do
+		echo $timer
 		screenshot
 		if clickImageCache ok.png || clickImageCache systemok.png
 		then
 			break
 		fi
 
-		if [[ $timer > 20 ]]
+		if [[ $timer -gt 20 ]]
 		then
 			for file in imgdec/ads/*
 			do
 				clickImageCache "${file#imgdec/}" .93
 			done
+		fi
+
+		if [[ $timer -gt 60 ]]
+		then
+			mkdir stuck
+			mv screen.png stuck/$(date +%s).png
+			counter=0
+			navigateToChapter
+			break
 		fi
 
 		if ! battleCatsRunning
@@ -48,7 +58,6 @@ do
 		# Timer is solely based on the fact that "screenshot" func takes about 1 sec
 		((timer++))
 	done
-
 
 	(( counter++ ))
 
