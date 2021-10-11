@@ -35,7 +35,5 @@ Unless you are using a Oneplus Nord N10 5G cellphone, you'll have to follow thes
 2. Manually watch a few ads and take screenshots of the closing symbols through the method mentioned before. Cropped images should go to `imgdec/ads`.
 3. Run `bash main.bash` and reap the gains. If the bot is unable to close an ad after around 45s, a screenshot of it will go to `stuck/` (that will be created). Do step 2 again and move the image into `imgdec/ads` as before. This is how the bot "learns" how to close ads.
 
-
-
-
 ## How to Build
+The only compiled portion of this project is the C++ OpenCV detector in `cimgdec`, which you can manually compile after installing the dependencies `sudo apt-get install cmake libopencv-dev g++`. Simply navigate to the folder and run `compile.bash` that will create a folder called `executable`. Place the executable in the root of the project and rename it to "getcoords". That's it. 
