@@ -47,7 +47,7 @@ do
 
 			for file in imgdec/ads/*
 			do
-				clickImageCache "${file#imgdec/}" .93
+				clickImageCache "${file#imgdec/}" .97
 			done
 		fi
 
