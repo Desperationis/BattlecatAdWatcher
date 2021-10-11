@@ -27,7 +27,7 @@ After that, simply run `sudo apt-get install python3 adb` and `python3 -m pip in
 ## How it works
 This bot is pretty simple and consists of two parts:
 1. **adb**. Everything that directly interfaces with your phone and the app is done through this command. This includes touches, closing BCE, opening BCE, taking screenshots, detecting the current app, ect. A list of functions are in `adbAPI.bash` that contains shortcuts for these actions.
-2. **OpenCV**. OpenCV is responsible for determining the location of the UI and the X's on the ads through screenshots. This is the crucial component that allows to work reliably with different ads, but is also the most resource-intensive. It is for this reason there are two versions of scripts that do this: `getcoords` executable compiled in C++ and `getcoords.py` in python. The C++ version is a lot faster and can be compiled from `cimgdec`. 
+2. **OpenCV**. OpenCV is responsible for determining the location of the UI and the X's on the ads through screenshots. This is the crucial component that allows to work reliably with different ads, but is also the most resource-intensive. It is for this reason there are two versions of scripts that do this: `getcoords` executable compiled in C++ and `getcoords.py` in python. The C++ version is a lot faster and can be compiled from `cimgdec`, while the python version is just there or learning purposes. The C++ executable will be used unless you uncomment stuff in `adbAPI.bash`
 
 ## How to use
 Unless you are using a Oneplus Nord N10 5G cellphone, you'll have to follow these steps:
