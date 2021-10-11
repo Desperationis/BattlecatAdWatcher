@@ -33,7 +33,7 @@ navigateToChapter
 
 while true
 do
-	touch 1780 600 # In case we run out of ads, press "Close"
+	tap 1780 600 # In case we run out of ads, press "Close"
 	clickFoundImage catfood.png
 	clickFoundImage watch.png
 
@@ -63,7 +63,10 @@ do
 
 			for file in imgdec/ads/*
 			do
-				clickImageCache "${file#imgdec/}" .97
+				if clickImageCache "${file#imgdec/}" .97
+				then
+					touch "$file"
+				fi
 			done
 		fi
 

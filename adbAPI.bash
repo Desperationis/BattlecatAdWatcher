@@ -23,7 +23,7 @@ launchBattleCats () {
 	adb shell monkey -p $battlecats 1 > /dev/null 2>&1
 }
 
-touch() {
+tap() {
 	if [[ $# -eq 2 ]] 
 	then
 		adb shell input tap $1 $2
@@ -101,7 +101,7 @@ clickFoundImage() {
 		coordsFound=$?
 	done
 
-	touch $coords
+	tap $coords
 }
 
 
@@ -125,5 +125,5 @@ clickImageCache() {
 		return 1
 	fi
 
-	touch $coords
+	tap $coords
 }
