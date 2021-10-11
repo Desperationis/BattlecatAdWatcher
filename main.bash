@@ -7,7 +7,23 @@ source adbAPI.bash
 
 navigateToChapter() {
 	restartBattleCats
-	clickFoundImage skip.png	
+	scounter=0
+	while true
+	do
+		screenshot
+		if clickImageCache skip.png
+		then
+			break
+		fi
+
+		if [[ scounter -ge 15 ]]
+		then
+			restartBattleCats
+			scounter=0
+		fi
+
+		((scounter++))
+	done
 	clickFoundImage play.png
 	clickFoundImage chapter.png
 }
