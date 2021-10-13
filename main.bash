@@ -33,8 +33,22 @@ navigateToChapter
 
 while true
 do
-	tap 1780 600 # In case we run out of ads, press "Close"
-	clickFoundImage catfood.png
+
+	# Very important. This section clicks any daily banners / awards until
+	# catfood has been pressed.
+	while true
+	do
+		screenshot
+		clickImageCache ok.png .70
+		clickImageCache OkSmall.png .70
+		clickImageCache eventX.png 
+
+		if clickImageCache catfood.png
+		then
+			break
+		fi
+	done
+
 	clickFoundImage watch.png
 
 	timer=0
