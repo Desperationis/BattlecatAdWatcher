@@ -35,21 +35,62 @@ while true
 do
 
 	# Very important. This section clicks any daily banners / awards until
-	# catfood has been pressed.
+	# catfood has been pressed. The 2s wait is to wait for banners
+	sleep 2
+	ccounter=0
 	while true
 	do
 		screenshot
-		clickImageCache ok.png .70
-		clickImageCache OkSmall.png .70
-		clickImageCache eventX.png 
+		clickImageCache bigOk.png
+		clickImageCache smallOk.png
+		clickImageCache ok.png
 
-		if clickImageCache catfood.png
+		clickImageCache eventX.png 
+		echo "Searching xx"
+
+		if [[ $ccounter -gt 1 ]]
 		then
+			if clickImageCache catfood.png .95
+			then
+				break
+			fi
+		fi
+
+		# Restart if for whatever reason we get stuck
+		if [[ $ccounter -gt 5 ]] 
+		then
+			restartBattleCats
+			quit=true
+			break
+		fi
+
+		((ccounter++))
+	done
+	echo "Exit"
+
+	ccounter=0
+	quit=false
+	while true
+	do
+		screenshot
+		if clickImageCache watch.png 
+		then
+			break
+		fi
+
+		# Restart if for whatever reason we get stuck
+		if [[ $ccounter -gt 5 ]] 
+		then
+			restartBattleCats
+			quit=true
 			break
 		fi
 	done
 
-	clickFoundImage watch.png
+	if [[ $quit == true ]]
+	then
+		continue
+	fi
 
 	timer=0
 	while true
@@ -106,7 +147,7 @@ do
 
 	(( counter++ ))
 
-	if [[ $counter -ge 10 ]]
+	if [[ $counter -ge 5 ]]
 	then
 		navigateToChapter
 		counter=0
