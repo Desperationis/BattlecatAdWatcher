@@ -46,6 +46,7 @@ do
 		if ! clickFoundImage catfood.png 10 .95
 		then
 			echo "Not able to find catfood on chapter menu. Restarting loop."
+			navigateToChapter
 			continue
 		else
 			echo "Catfood was clicked."
@@ -71,6 +72,7 @@ do
 			continue
 		else
 			echo "Able to close all events. Restarting loop."
+			navigateToChapter
 			continue
 		fi
 	fi
