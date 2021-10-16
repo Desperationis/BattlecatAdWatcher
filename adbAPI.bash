@@ -172,3 +172,14 @@ clickImageCache() {
 
 	tap $coords
 }
+
+changeBrightness() {
+	# Change brightness of device.
+	#
+	# Usage: "changeBrightness BRIGHTNESS", where BRIGHTNESS is a integer that
+	# represents the screen's brightness. On most devices, this is a number
+	# between 0 - 255, 0 being the lowest brightness.  Accidently going above
+	# or below this limit has no lasting effects on the device.
+
+	adb shell settings put system screen_brightness $1
+}
