@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if ! [[ -e log.txt ]]
+then
+	touch log.txt
+fi
+
 source adbAPI.bash
 
 export -f tap
@@ -20,13 +25,20 @@ navigateToChapter() {
 
 	restartBattleCats
 
-	echo "Navigating to the main chapter menu."
+	log "Navigating to the main chapter menu."
 	until clickFoundImage skip.png 15 && { clickFoundImage play.png 15 && clickFoundImage chapter.png 15; }
 	do
-		echo "There was an error navigating main menu. Restarting..."
+		log "There was an error navigating main menu. Restarting..."
 		restartBattleCats
 	done
-	echo "Arrived at main chapter menu."
+	log "Arrived at main chapter menu."
+}
+
+log () {
+	message=$1
+	timestamp=$(date)
+
+	echo "$timestamp: $message" | tee -a log.txt
 }
 
 counter=0
@@ -34,25 +46,25 @@ navigateToChapter
 
 while true
 do
-	echo " "
+	log " "
 
 	# Check if we are in main menu or daily special event menu
-	echo "Checking screenshot to confirm we are at the menu."
+	log "Checking screenshot to confirm we are at the menu."
 	sleep 2
 	screenshot
 	if imageFound start.png
 	then
-		echo "We are in the chapter menu. Trying to click catfood."
+		log "We are in the chapter menu. Trying to click catfood."
 		if ! clickFoundImage catfood.png 10 .95
 		then
-			echo "Not able to find catfood on chapter menu. Restarting loop."
+			log "Not able to find catfood on chapter menu. Restarting loop."
 			navigateToChapter
 			continue
 		else
-			echo "Catfood was clicked."
+			log "Catfood was clicked."
 		fi
 	else
-		echo "We are not in the chapter menu. Trying to close daily events."
+		log "We are not in the chapter menu. Trying to close daily events."
 
 		SECONDS=0
 		until (( SECONDS >= 60 )) || imageFound start.png
@@ -67,11 +79,11 @@ do
 
 		if (( SECONDS >= 60 ))
 		then
-			echo "Not able to close events. Restarting Battle Cats and loop."
+			log "Not able to close events. Restarting Battle Cats and loop."
 			navigateToChapter
 			continue
 		else
-			echo "Able to close all events. Restarting loop."
+			log "Able to close all events. Restarting loop."
 			navigateToChapter
 			continue
 		fi
@@ -80,13 +92,13 @@ do
 
 
 	# Click ad offer and repeat loop if unable to
-	echo "Trying to click ad offer."
+	log "Trying to click ad offer."
 	SECONDS=0
 	if clickFoundImage watch.png 15
 	then
-		echo "Offer was able to be clicked."
+		log "Offer was able to be clicked."
 	else
-		echo "Offer was unable to be clicked. Restarting Battle Cats and loop."
+		log "Offer was unable to be clicked. Restarting Battle Cats and loop."
 		navigateToChapter
 		continue
 	fi
@@ -94,7 +106,7 @@ do
 
 
 	# Auto close the ad
-	echo "Watching ad and trying to close it. This might take awhile."
+	log "Watching ad and trying to close it. This might take awhile."
 	SECONDS=0
 	while true
 	do
@@ -102,7 +114,7 @@ do
 
 		if clickImageCache ok.png || clickImageCache systemok.png
 		then
-			echo "Ad has ended."
+			log "Ad has ended."
 			break
 		fi
 
@@ -110,7 +122,7 @@ do
 		then
 			if python3 isBlack.py
 			then
-				echo "Ad crashed. Restarting battlecats and loop."
+				log "Ad crashed. Restarting battlecats and loop."
 				navigateToChapter
 				break
 			fi
@@ -128,9 +140,9 @@ do
 			done
 		fi
 
-		if (( SECONDS >= 45 ))
+		if (( SECONDS >= 60 ))
 		then
-			echo "Can't close this ad, moving screenshot to stuck/ and restarting."
+			log "Can't close this ad, moving screenshot to stuck/ and restarting."
 
 			if ! [[ -d stuck ]]
 			then
@@ -144,7 +156,7 @@ do
 
 		if ! battleCatsRunning
 		then
-			echo "Foreign app was opened. Restarting battlecats and loop."
+			log "Foreign app was opened. Restarting battlecats and loop."
 			navigateToChapter
 			break
 		fi

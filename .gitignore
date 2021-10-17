@@ -5,3 +5,4 @@ screen.png
 *.cache/
 *compile_commands.json
 stuck/
+log.txt
