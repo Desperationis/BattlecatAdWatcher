@@ -1,3 +1,0 @@
-source ../adbAPI.bash
-
-screenshot
