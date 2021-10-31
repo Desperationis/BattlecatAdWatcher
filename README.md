@@ -15,7 +15,6 @@ This bot can:
 
 ## Drawbacks
 This bot, as of right now, can't:
-* Navigate through the UI of surprise daily events, i.e. gacha banners
 * Work right out of the box
 * Navigate through chapters; Chapters must be visible the moment you press "Start" on the menu (look at gif).
 
