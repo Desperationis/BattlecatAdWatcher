@@ -127,30 +127,36 @@ screenshot() {
 clickFoundImage() {
 	# Searches for an image on the device's screen and stalls until it finds it.
 	#
-	# Usage: "clickFoundImage NAME [ ACC ]", where NAME is the name of the file
-	# in relation to imgdec/ and ACC is an optional parameter detailing the
-	# minimum accuracy needed to click on the image. This is set to 80% by
-	# default.
+	# Usage: "clickFoundImage NAME TIMEOUT [ ACC ]", where NAME is the name of
+	# the file in relation to imgdec/, TIMEOUT is the amount of time in seconds
+	# that the function will exit if it doesn't match anything, and ACC is an
+	# optional parameter detailing the minimum accuracy needed to click on the
+	# image. This is set to 0.8 by default. If nothing is matched before
+	# TIMEOUT ends this returns an exit code of 1
 
-	screenshot
-
-	clickImageCache $1 $2
-
-	imageClicked=$?
-	until [[ $coordsFound -eq 0 ]]
+	SECONDS=0
+	imageClicked=1
+	until (( SECONDS >= $2 )) || (( imageClicked == 0 ))
 	do
 		screenshot
-		clickImageCache $1 $2
+		clickImageCache $1 $3
 		imageClicked=$?
 	done
+	
+	if (( SECONDS >= $2 ))
+	then
+		return 1
+	fi
 }
 
-clickImageCache() {
-	# Searches for an image in screen.png in one go.
-	#
-	# Usage: "clickImageCache NAME [ ACC ]", where NAME is the name of the file
-	# in relation to imgdec/ and ACC is an optional parameter detailing the
-	# minimum accuracy needed to click on the image. This is set to 80% by
+imageFound() {
+	# Return exit code 0 if image is found on screen.png, 1 otherwise.
+	# Coordinates of the center of the image is put into a variable called
+	# "coords".
+	# 
+	# Usage: "imageFound NAME [ ACC ]", where NAME is the name of the file in
+	# relation to imgdec/ and ACC is an optional parameter detailing the
+	# minimum accuracy needed to click on the image. This is set to 0.8 by
 	# default.
 
 	templateName=$1	
@@ -161,11 +167,24 @@ clickImageCache() {
 		accuracy=$2
 	fi
 
-	#coords=$(python3 getcoords.py ./imgdec/$templateName screen.png $accuracy)
 	coords=$(./getcoords ./imgdec/$templateName screen.png $accuracy)
 	coordsFound=$?
 
 	if [[ $coordsFound -ne 0 ]]
+	then
+		return 1
+	fi
+}
+
+clickImageCache() {
+	# Searches for an image in screen.png in one go.
+	#
+	# Usage: "clickImageCache NAME [ ACC ]", where NAME is the name of the file
+	# in relation to imgdec/ and ACC is an optional parameter detailing the
+	# minimum accuracy needed to click on the image. This is set to 0.8 by
+	# default.
+
+	if ! imageFound $1 $2
 	then
 		return 1
 	fi
