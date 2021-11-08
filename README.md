@@ -1,7 +1,7 @@
 # Farmer Cat
 ![demo](demo.gif)
 
-Autoclicker that watches BCE ads for you for catfood using adb and OpenCV.
+Autoclicker that watches Battle Cat ads on your phone for you for catfood using adb and OpenCV.
 
 ## Features
 This bot can:
