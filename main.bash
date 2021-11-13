@@ -112,9 +112,16 @@ do
 	do
 		screenshot
 
-		if clickImageCache ok.png || clickImageCache systemok.png
+		if clickImageCache ok.png
 		then
 			log "Ad has ended."
+			break
+		fi
+
+		if clickImageCache systemok.png
+		then
+			log "Ran out of ads. Reloading battle cats..."
+			#navigateToChapter
 			break
 		fi
 
