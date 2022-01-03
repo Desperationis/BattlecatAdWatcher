@@ -23,7 +23,7 @@ To run this bot, you need to have a Linux system with the latest version of Bash
 
 After that, simply run `sudo apt-get install python3 adb libopencv-dev` and `python3 -m pip install pillow opencv-python`.
 
-**Note: If you are not running a Debian-based system you'll need to recompile getcoords (shown below)*
+**Note: Depending on your flavor of Linux, you may need to recompile getcoords (shown below)*
 
 ## How it works
 This bot is pretty simple and consists of two parts:
