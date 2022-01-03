@@ -21,7 +21,9 @@ This bot, as of right now, can't:
 ## Requirements
 To run this bot, you need to have a Debian system with the latest version of Bash installed. For your Android phone, I'm not sure what specific Android versions are supported, but I ran this on Android 11. In addition, you must have USB Debugging enabled on your android. 
 
-After that, simply run `sudo apt-get install python3 adb` and `python3 -m pip install pillow opencv-python`. If you plan on building the project also run `sudo apt-get install cmake libopencv-dev g++`. 
+After that, simply run `sudo apt-get install python3 adb libopencv-dev` and `python3 -m pip install pillow opencv-python`.
+
+**Note: If you are not running a Debian-based system you'll need to recompile getcoords (shown below)*
 
 ## How it works
 This bot is pretty simple and consists of two parts:
