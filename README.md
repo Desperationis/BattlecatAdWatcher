@@ -3,6 +3,9 @@
 
 Autoclicker that watches Battle Cat ads on your phone for you for catfood using adb and OpenCV.
 
+## NOTICE
+This 100% still works, but Battle Cats has recently forbid you from watching more than 5 ads a day (lame) starting Version 11. This essentially makes this thing worthless unless they revert their decision.
+
 ## Features
 This bot can:
 1. Farm catfood overnight reliably (60 CF / h)
